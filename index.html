@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Ecozyme — Enzymatic Biofilm Solutions</title>
+<meta name="description" content="Ecozyme: 효소 기반 바이오필름 제품(플라스틱 분해·CO₂ 저감) — 제품/기술/데이터/파일럿/로드맵/팀까지" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  :root{
+    --maxw:1200px;
+    --accent:#137a66;
+    --accent2:#2bb59a;
+    --bg:#f6fbfa;
+    --card:#ffffff;
+    --muted:#617471;
+    --glass: rgba(255,255,255,0.8);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Noto Sans KR',sans-serif;background:linear-gradient(180deg,var(--bg),#eef7f6);color:#072926}
+  header{position:sticky;top:0;background:rgba(255,255,255,0.85);backdrop-filter:blur(6px);z-index:50;border-bottom:1px solid rgba(6,40,36,0.06)}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
+  .brand{display:flex;gap:12px;align-items:center}
+  .logo{width:46px;height:46px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;color:white;font-weight:900;font-size:18px}
+  nav a{margin-left:18px;color:var(--muted);text-decoration:none;font-weight:700}
+  nav a:hover{color:var(--accent)}
+  .cta{background:var(--accent);color:white;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:800}
+
+  /* HERO */
+  .hero{max-width:var(--maxw);margin:28px auto;padding:48px 20px;display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center}
+  @media(max-width:980px){.hero{grid-template-columns:1fr;padding:36px 14px}}
+  .hero-card{background:var(--card);border-radius:var(--radius);padding:28px;box-shadow:0 12px 40px rgba(7,40,36,0.06)}
+  .eyebrow{display:inline-block;background:#e9fbf6;color:var(--accent);padding:6px 10px;border-radius:999px;font-weight:800;font-size:13px}
+  h1{margin:8px 0 6px;font-size:28px}
+  .lead{color:var(--muted);margin-bottom:18px}
+  .specs{display:flex;gap:10px;flex-wrap:wrap}
+  .spec{background:#f1fffb;padding:8px 10px;border-radius:10px;font-weight:800;color:var(--accent);font-size:13px}
+
+  /* right column */
+  .hero-right{display:flex;flex-direction:column;gap:12px}
+  .card{background:linear-gradient(180deg,#ffffff,#f7fffb);padding:16px;border-radius:12px;box-shadow:inset 0 -1px 0 rgba(10,60,54,0.02)}
+  .small{font-size:13px;color:var(--muted)}
+
+  /* sections */
+  section{max-width:var(--maxw);margin:18px auto;padding:40px 20px}
+  h2{font-size:22px;color:var(--accent);margin-bottom:14px;border-left:6px solid var(--accent);padding-left:12px}
+  p{color:#083634;line-height:1.7}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:880px){.grid{grid-template-columns:1fr}}
+
+  /* tech diagram */
+  .diagram{background:linear-gradient(180deg,#f8fffb,#ffffff);border-radius:12px;padding:18px;display:flex;gap:18px;align-items:center;flex-wrap:wrap;box-shadow:0 8px 24px rgba(10,40,36,0.04)}
+  .svg-wrap{flex:1;min-width:320px}
+  .diagram .explain{flex:1;min-width:300px;color:var(--muted)}
+
+  /* data dashboard */
+  .dash{display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap}
+  .chart-card{background:var(--card);padding:12px;border-radius:12px;box-shadow:0 8px 20px rgba(10,40,36,0.04);flex:1;min-width:300px}
+  canvas{width:100%!important;height:260px!important}
+
+  /* comparison table */
+  table{width:100%;border-collapse:collapse;background:var(--card);border-radius:12px;overflow:hidden;box-shadow:0 8px 20px rgba(10,40,36,0.04)}
+  th,td{padding:12px;border-bottom:1px solid rgba(6,40,36,0.04);text-align:left}
+  th{background:#f1fffb;color:var(--accent);font-weight:800}
+
+  /* case study cards */
+  .case{background:linear-gradient(180deg,#ffffff,#f7fffb);padding:16px;border-radius:12px;box-shadow:0 6px 18px rgba(10,40,36,0.04)}
+
+  /* product lineup */
+  .lineup{display:flex;gap:12px;flex-wrap:wrap}
+  .pkg{background:linear-gradient(180deg,#fff,#f4fffb);padding:16px;border-radius:12px;min-width:220px;flex:1;box-shadow:0 8px 18px rgba(10,40,36,0.03)}
+
+  /* installation guide */
+  .steps{display:flex;flex-direction:column;gap:12px}
+  .step{display:flex;gap:12px;align-items:flex-start}
+  .step .num{width:44px;height:44px;background:var(--accent);color:white;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900}
+
+  /* metrics / kpi */
+  .kpis{display:flex;gap:12px;flex-wrap:wrap}
+  .kpi{background:linear-gradient(180deg,#f1fffb,#ffffff);padding:12px;border-radius:10px;font-weight:800;color:var(--accent);min-width:160px;box-shadow:0 6px 16px rgba(10,40,36,0.03)}
+
+  /* roadmap */
+  .road{display:flex;flex-direction:column;gap:10px}
+
+  /* team */
+  .team{display:flex;gap:14px;flex-wrap:wrap}
+  .member{background:var(--card);padding:12px;border-radius:10px;min-width:180px;box-shadow:0 8px 18px rgba(10,40,36,0.03)}
+
+  footer{background:linear-gradient(180deg,#0f3b36,#0b2d27);color:white;padding:28px}
+
+  /* small */
+  @media(max-width:640px){
+    .hero{padding:20px}
+    .wrap{padding:10px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brand">
+      <div class="logo">E</div>
+      <div>
+        <div style="font-weight:900">Ecozyme</div>
+        <div style="font-size:12px;color:var(--muted)">Enzymatic Biofilm Solutions</div>
+      </div>
+    </div>
+    <nav>
+      <a href="#tech">기술</a>
+      <a href="#data">데이터</a>
+      <a href="#cases">사례</a>
+      <a href="#contact" class="cta">문의하기</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-card">
+    <span class="eyebrow">제품 · 스마트 바이오필름</span>
+    <h1>Ecozyme Biofilm — 효소로 오염을 분해하고 자원으로 전환하다</h1>
+    <p class="lead">Ecozyme은 RuBisCO 유사 효소와 인공화된 분해효소(E-7)를 고분자 매트릭스에 고정화하여, 플라스틱·유기오염물·CO₂를 현장 수준에서 저에너지로 분해·전환하는 상용 솔루션을 제공합니다.</p>
+
+    <div class="specs" style="margin-top:18px">
+      <div class="spec">모듈형 · 롤/패널</div>
+      <div class="spec">저에너지 운용</div>
+      <div class="spec">모듈 교체형 유지보수</div>
+    </div>
+
+    <div style="margin-top:18px;display:flex;gap:12px">
+      <a class="cta" href="#contact">파일럿 문의</a>
+      <a class="small" href="#" id="downloadBrochure">브로셔(간단) 보기</a>
+    </div>
+
+    <div style="margin-top:12px" class="small">*표기된 성능은 실험실·파일럿 모의 데이터 기반이며 현장 조건에서 달라질 수 있습니다.</div>
+  </div>
+
+  <div class="hero-right">
+    <div class="card">
+      <strong>한눈에 보는 가치</strong>
+      <ul style="margin:8px 0 0 18px;color:var(--muted)">
+        <li>현장 설치로 분산형 오염 저감</li>
+        <li>폐기물 → 자원(포름산 등) 전환 가능</li>
+        <li>친환경 소재 기반 제조</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <strong>빠른 스펙</strong>
+      <div style="margin-top:8px" class="small">
+        동작온도: 5–40°C<br/>
+        제거율(랩): 0.2–1.8 g·m²·h⁻¹<br/>
+        모듈수명(카트리지): 3–12개월
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH & MECHANISM -->
+<section id="tech">
+  <h2>기술 구조 & 분자 메커니즘</h2>
+  <div class="diagram">
+    <div class="svg-wrap">
+      <!-- simplified biofilm svg -->
+      <svg viewBox="0 0 700 260" width="100%" height="260" aria-hidden="true">
+        <!-- background -->
+        <defs>
+          <linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#e6fbf6"/><stop offset="1" stop-color="#f7fff9"/></linearGradient>
+        </defs>
+        <rect x="0" y="0" width="700" height="260" rx="12" fill="url(#g1)"/>
+        <!-- film layers -->
+        <g transform="translate(30,28)">
+          <rect x="0" y="8" width="640" height="40" rx="8" fill="#d7f7ee" stroke="#bdeee0"/>
+          <text x="12" y="34" font-size="14" fill="#05695e" font-weight="700">효소층 (E-7 / CA / RuBisCO 유사)</text>
+
+          <rect x="0" y="64" width="640" height="40" rx="8" fill="#f0fff9" stroke="#e0f7ee"/>
+          <text x="12" y="90" font-size="14" fill="#05695e" font-weight="700">미생물층 (분해·흡수 미생물 군집)</text>
+
+          <rect x="0" y="120" width="640" height="80" rx="8" fill="#ffffff" stroke="#eef8f3"/>
+          <text x="12" y="150" font-size="13" fill="#07564f" font-weight="700">지지체: 알지네이트 기반 고분자 매트릭스</text>
+
+          <!-- pollutant arrow -->
+          <path d="M20 16 L20 -8" stroke="#0b6b5e" stroke-width="3" marker-end="url(#arr)"/>
+          <text x="22" y="-2" font-size="12" fill="#0b6b5e">오염물질/CO₂ 유입</text>
+
+          <!-- markers -->
+          <defs>
+            <marker id="arr" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#0b6b5e" />
+            </marker>
+          </defs>
+        </g>
+      </svg>
+    </div>
+    <div class="explain">
+      <h3 style="margin-top:0">원리 요약</h3>
+      <p class="small">Ecozyme는 3중 구조로 작동한다.</p>
+      <ol style="margin-left:18px;color:var(--muted)">
+        <li><strong>표면 흡착</strong> — 오염물질/CO₂가 필름 표면으로 확산된다.</li>
+        <li><strong>효소 촉매 반응</strong> — E-7 효소가 고분자 결합을 절단해 저분자화.</li>
+        <li><strong>미생물 흡수·완전분해</strong> — 내부 미생물이 분해 산물을 흡수해 무해화 및 자원화.</li>
+      </ol>
+      <p class="small">추가 기술: 단백질 엔지니어링(Directed Evolution)으로 효소 내구성 강화, 표면 나노패터닝으로 확산 속도 향상.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DATA DASHBOARD -->
+<section id="data">
+  <h2>데이터 대시보드 (모의 / 파일럿 기반)</h2>
+  <div class="dash">
+    <div class="chart-card">
+      <strong>플라스틱 분해 — 시간경과</strong>
+      <canvas id="timeChart"></canvas>
+      <div class="small" style="margin-top:8px;color:var(--muted)">모의 실험: Ecozyme vs 대조</div>
+    </div>
+    <div class="chart-card">
+      <strong>효소 활성 vs 온도</strong>
+      <canvas id="tempChart"></canvas>
+      <div class="small" style="margin-top:8px;color:var(--muted)">효소의 최적 온도 범위와 안정성 비교 (모의)</div>
+    </div>
+  </div>
+
+  <div style="height:18px"></div>
+  <div class="dash">
+    <div class="chart-card">
+      <strong>기술 비교</strong>
+      <table aria-label="기술 비교">
+        <thead><tr><th>기준</th><th>Ecozyme</th><th>열분해</th><th>화학 용매</th></tr></thead>
+        <tbody>
+          <tr><td>에너지 요구</td><td>낮음</td><td>매우 높음</td><td>중간</td></tr>
+          <tr><td>잔류 독성</td><td>낮음</td><td>중간-높음</td><td>높음</td></tr>
+          <tr><td>현장 적용성</td><td>높음(모듈형)</td><td>낮음(대형 설비)</td><td>중간</td></tr>
+          <tr><td>자원 전환 가능성</td><td>높음</td><td>중간</td><td>낮음</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="chart-card">
+      <strong>영향 메트릭 (연간 추정)</strong>
+      <div class="kpis" style="margin-top:8px">
+        <div class="kpi">연간 제거량: 12 t/설치(예시)</div>
+        <div class="kpi">CO₂ 감축: 3.2 tCO₂e/설치</div>
+        <div class="kpi">직접 회수 가능한 자원: 포름산 200 kg/설치</div>
+      </div>
+      <div class="small" style="margin-top:10px;color:var(--muted)">수치는 파일럿 모델 기반 추정치(현장조건에 따라 달라짐).</div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDIES -->
+<section id="cases">
+  <h2>파일럿·적용 사례 (가상/실제 혼합 예시)</h2>
+  <div class="grid">
+    <div class="case">
+      <strong>하천 플라스틱 띠 파일럿</strong>
+      <p class="small">소도시 하천에 Ecozyme Tube 설치 → 8주 관찰 결과 미세플라스틱 72% 감소(표면 샘플 기준).</p>
+    </div>
+    <div class="case">
+      <strong>양식장 미세플라스틱 저감</strong>
+      <p class="small">양식장 수환에 WaterDisk 적용 → 어린 해산물 섭취 미세플라스틱 수치 개선 관측(파일럿 데이터).</p>
+    </div>
+    <div class="case">
+      <strong>빌딩 덕트 실내 CO₂ 저감</strong>
+      <p class="small">사무실 HVAC에 Ecozyme Pad 설치 → 2주 내 CO₂ 피크값 18% 감소, 환기 빈도 최적화에 기여.</p>
+    </div>
+    <div class="case">
+      <strong>공장 배출 전 처리</strong>
+      <p class="small">작은 공장 굴뚝 인터페이스 테스트(모의)에서 포집 후 자원화 가능성 검증.</p>
+    </div>
+  </div>
+</section>
+
+<!-- INSTALL & LINEUP -->
+<section id="install">
+  <h2>제품 설치 가이드 & 라인업</h2>
+  <div class="grid">
+    <div>
+      <h3>제품 라인업</h3>
+      <div class="lineup">
+        <div class="pkg"><strong>Ecozyme Pad</strong><div class="small">소형 실내·덕트용 · 설치 간편</div></div>
+        <div class="pkg"><strong>Ecozyme Tube</strong><div class="small">하천·파이프 연결형 · 연속 처리</div></div>
+        <div class="pkg"><strong>Ecozyme WaterDisk</strong><div class="small">수변·빗물 시스템용 · 부유 설치</div></div>
+      </div>
+      <h3 style="margin-top:16px">사용법 (간단)</h3>
+      <div class="steps">
+        <div class="step"><div class="num">1</div><div><strong>현장평가</strong><div class="small">오염 종류·흐름·온도 확인</div></div></div>
+        <div class="step"><div class="num">2</div><div><strong>모듈 설치</strong><div class="small">덕트/파이프/수면에 맞춰 장착</div></div></div>
+        <div class="step"><div class="num">3</div><div><strong>모니터링</strong><div class="small">성능·수질 지표 실시간 로깅</div></div></div>
+        <div class="step"><div class="num">4</div><div><strong>카트리지 교체</strong><div class="small">3~12개월 주기(환경에 따름)</div></div></div>
+      </div>
+    </div>
+
+    <div>
+      <h3>설치 사례 이미지(예시)</h3>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+        <div style="background:#fff;border-radius:8px;padding:8px;box-shadow:0 6px 18px rgba(10,40,36,0.04);min-width:120px;text-align:center">덕트 설치</div>
+        <div style="background:#fff;border-radius:8px;padding:8px;box-shadow:0 6px 18px rgba(10,40,36,0.04);min-width:120px;text-align:center">하천 Tube</div>
+        <div style="background:#fff;border-radius:8px;padding:8px;box-shadow:0 6px 18px rgba(10,40,36,0.04);min-width:120px;text-align:center">WaterDisk</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP / R&D -->
+<section id="rd">
+  <h2>R&D 파이프라인 & 로드맵</h2>
+  <div class="road">
+    <div class="step"><div class="num">A</div><div><strong>Discovery</strong><div class="small">효소 후보 탐색 / 분해 경로 규명</div></div></div>
+    <div class="step"><div class="num">B</div><div><strong>Optimization</strong><div class="small">단백질 공학(내열성) · 매트릭스 개선</div></div></div>
+    <div class="step"><div class="num">C</div><div><strong>Pilot</strong><div class="small">현장 파일럿, 데이터 수집</div></div></div>
+    <div class="step"><div class="num">D</div><div><strong>Scale</strong><div class="small">대량 제조·서비스 모델 확장</div></div></div>
+  </div>
+</section>
+
+<!-- TEAM & PHILOSOPHY -->
+<section id="team">
+  <h2>팀 · 철학</h2>
+  <div style="display:flex;gap:18px;flex-wrap:wrap">
+    <div class="member">
+      <strong>대표 / Founder</strong>
+      <div class="small">생화학 전공, 환경기술 개발 리드</div>
+    </div>
+    <div class="member">
+      <strong>CTO</strong>
+      <div class="small">단백질 엔지니어링 / 대사공학 전문가</div>
+    </div>
+    <div class="member">
+      <strong>엔지니어</strong>
+      <div class="small">필름 제조 · 모듈 설계</div>
+    </div>
+    <div class="member">
+      <strong>리서처</strong>
+      <div class="small">분해효소 스크리닝·파일럿 운영</div>
+    </div>
+  </div>
+
+  <div style="margin-top:18px">
+    <strong>브랜드 철학</strong>
+    <p class="small">"작은 분자 반응이 큰 변화를 만든다" — 우리는 자연의 화학을 존중하며, 이를 기술로 연결해 지속가능한 회복력을 만든다.</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <h2>문의 · 파일럿 신청</h2>
+  <div class="grid">
+    <div class="card">
+      <form id="contactForm" onsubmit="handleSubmit(event)">
+        <label style="font-weight:800">기관 / 회사명</label>
+        <input id="org" required style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(6,40,36,0.06);margin-top:6px"/>
+        <label style="font-weight:800;margin-top:12px">이메일</label>
+        <input id="email" type="email" required style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(6,40,36,0.06);margin-top:6px"/>
+        <label style="font-weight:800;margin-top:12px">요청내용</label>
+        <textarea id="msg" rows="4" style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(6,40,36,0.06);margin-top:6px"></textarea>
+        <button type="submit" style="margin-top:12px;background:var(--accent);color:white;padding:12px 16px;border-radius:10px;border:none;font-weight:800">파일럿 신청</button>
+      </form>
+      <div id="note" class="small" style="margin-top:12px;color:var(--muted)"></div>
+    </div>
+
+    <div class="card">
+      <strong>보도자료 · 자료 요청</strong>
+      <p class="small">브로셔, 기술자료(PDF) 요청 시 이메일을 적어줘. 바로 열 수 있는 간단 브로셔도 준비되어 있어.</p>
+      <button id="downloadBtn" style="background:var(--accent2);color:white;padding:10px 12px;border-radius:8px;border:none;font-weight:800">브로셔 열기</button>
+      <div style="margin-top:12px" class="small">문의: contact@ecozyme.example</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="justify-content:space-between;align-items:center">
+    <div>© 2025 Ecozyme · 생화학 기반 환경 솔루션</div>
+    <div class="small">Designed for demo · 모의 데이터 포함</div>
+  </div>
+</footer>
+
+<script>
+/* ---------- Charts ---------- */
+const timeCtx = document.getElementById('timeChart').getContext('2d');
+const timeChart = new Chart(timeCtx, {
+  type: 'line',
+  data: {
+    labels: ['0일','7일','14일','21일','28일','35일'],
+    datasets: [
+      { label:'Ecozyme', data:[0,18,40,62,78,85], borderColor:'#137a66', backgroundColor:'rgba(19,122,102,0.08)', tension:0.25, fill:true },
+      { label:'대조(무처리)', data:[0,4,9,13,15,16], borderColor:'#9aa8a4', backgroundColor:'rgba(154,168,164,0.04)', tension:0.25, fill:true }
+    ]
+  },
+  options:{responsive:true,plugins:{legend:{position:'bottom'},title:{display:true,text:'플라스틱 분해율 (시간 경과)'}},scales:{y:{beginAtZero:true,max:100}}}
+});
+
+const tempCtx = document.getElementById('tempChart').getContext('2d');
+const tempChart = new Chart(tempCtx, {
+  type: 'line',
+  data: {
+    labels: ['0°C','5°C','10°C','15°C','20°C','25°C','30°C','35°C','40°C','45°C'],
+    datasets: [
+      { label:'효소 활성(상대)', data:[0,10,30,55,80,100,90,60,30,10], borderColor:'#2bb59a', backgroundColor:'rgba(43,181,154,0.06)', tension:0.3, fill:true }
+    ]
+  },
+  options:{responsive:true,plugins:{legend:{display:false},title:{display:true,text:'효소 활성 vs 온도 (모의)'}},scales:{y:{beginAtZero:true,max:120}}}
+});
+
+/* ---------- brochure / print ---------- */
+document.getElementById('downloadBtn').addEventListener('click',()=>{
+  const html = `
+  <html><head><meta charset="utf-8"><title>Ecozyme 브로셔</title>
+  <style>body{font-family:Arial;padding:28px;color:#073a33}h1{color:#137a66}</style></head><body>
+  <h1>Ecozyme — 제품 브로셔</h1>
+  <p>효소 기반 바이오필름 솔루션: Ecozyme Biofilm</p>
+  <h3>요약</h3><p>모듈형 필름으로 플라스틱 분해 및 CO₂ 저감. 저에너지 운용, 카트리지 교체형 유지보수.</p>
+  <h3>스펙</h3><p>동작온도 5–40°C, 제거율(랩) 0.2–1.8 g·m²·h⁻¹</p>
+  <h3>문의</h3><p>contact@ecozyme.example</p>
+  </body></html>`;
+  const w = window.open('', '_blank'); w.document.write(html); w.document.close();
+});
+
+/* ---------- demo fragment animation (visual) ---------- */
+(function demoFragments(){
+  // create tiny animated fragments for visual interest
+  const fragRoot = document.createElement('div');
+  fragRoot.style.position='fixed'; fragRoot.style.right='14px'; fragRoot.style.bottom='120px'; fragRoot.style.width='160px'; fragRoot.style.height='120px'; fragRoot.style.pointerEvents='none';
+  document.body.appendChild(fragRoot);
+  for(let i=0;i<6;i++){
+    const f = document.createElement('div');
+    f.style.width='12px'; f.style.height='12px'; f.style.background='#ffd789'; f.style.borderRadius='50%';
+    f.style.position='absolute'; f.style.left=(10+i*22)+'px'; f.style.top=(20 + Math.random()*60)+'px';
+    f.style.opacity='0.9'; f.style.boxShadow='0 6px 18px rgba(255,148,34,0.12)';
+    fragRoot.appendChild(f);
+    animateFragment(f, i);
+  }
+  function animateFragment(el, idx){
+    let t=0;
+    setInterval(()=>{ t++; el.style.transform = 'translateY(' + (Math.sin((t+idx*20)/10)*6) + 'px) translateX(' + (Math.sin((t+idx*15)/15)*8) + 'px)'; el.style.opacity = 0.6 + Math.abs(Math.sin(t/10))/2; }, 180);
+  }
+})();
+
+/* ---------- contact form (mock) ---------- */
+function handleSubmit(e){
+  e.preventDefault();
+  const org = document.getElementById('org').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const msg = document.getElementById('msg').value.trim();
+  const note = document.getElementById('note');
+  if(!org || !email){ note.style.color='crimson'; note.textContent='회사명과 이메일은 필수야.'; return; }
+  note.style.color='green'; note.textContent='신청 접수 완료 — 담당자가 2영업일 내 연락할게.';
+  document.getElementById('contactForm').reset();
+}
+
+/* ---------- accessibility / quick links ---------- */
+document.querySelectorAll('nav a').forEach(a=>{
+  a.addEventListener('click', (e)=>{
+    const href = a.getAttribute('href');
+    if(href && href.startsWith('#')) {
+      e.preventDefault();
+      document.querySelector(href).scrollIntoView({behavior:'smooth', block:'start'});
+    }
+  });
+});
+</script>
+</body>
+</html>
